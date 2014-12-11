@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require Chart
+//= require jquery-ui
 //= require_tree .
 
 $(function(){
@@ -25,7 +26,7 @@ $(function(){
 })
 
 $(function(){
-  $('html').on('click', function(e){
+  $('body').on('click', function(e){
     $.ajax({
       type: "POST",
       url: "api/v1/clicks",
@@ -34,11 +35,32 @@ $(function(){
   })
 })
 $(function(){
+
+  var labels = []
+    , data   = [];
+
+  for (var prop in window.barchartData){
+    if(window.barchartData.hasOwnProperty(prop)){
+      labels.push(prop);
+      data.push(window.barchartData[prop].length)
+    }
+  }
+
+  var labels2 = []
+    , data2   = [];
+
+  for (var prop in window.barchartDataClick){
+    if(window.barchartDataClick.hasOwnProperty(prop)){
+      labels2.push(prop);
+      data2.push(window.barchartDataClick[prop].length)
+    }
+  }
+
   var ctx = $("#myChart").get(0).getContext("2d");
 
   var myNewChart = new Chart(ctx);
   new Chart(ctx).Bar({
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: labels,
     datasets: [
         {
             label: "My First dataset",
@@ -46,8 +68,30 @@ $(function(){
             strokeColor: "rgba(220,220,220,0.8)",
             highlightFill: "rgba(220,220,220,0.75)",
             highlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
+            data: data
         },
     ]
   }, {});
-})
+
+  var cC = $("#clickChart").get(0).getContext("2d");
+
+  var clickChartNew = new Chart(cC);
+  new Chart(cC).Bar({
+    labels: labels2,
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: data2
+        },
+    ]
+  }, {});
+});
+
+$(function() {
+  $('#datepicker').datepicker();
+});
+
