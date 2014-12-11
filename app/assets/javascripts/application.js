@@ -13,4 +13,41 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require Chart
 //= require_tree .
+
+$(function(){
+  $.ajax({
+    type: "POST",
+    url: "api/v1/pageviews",
+    data: { pageview: {url: document.URL, useragent:navigator.userAgent}}
+  })
+})
+
+$(function(){
+  $('html').on('click', function(e){
+    $.ajax({
+      type: "POST",
+      url: "api/v1/clicks",
+      data: { click: {url: document.URL, element:e.target.nodeName}}
+    }) 
+  })
+})
+$(function(){
+  var ctx = $("#myChart").get(0).getContext("2d");
+
+  var myNewChart = new Chart(ctx);
+  new Chart(ctx).Bar({
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: [65, 59, 80, 81, 56, 55, 40]
+        },
+    ]
+  }, {});
+})

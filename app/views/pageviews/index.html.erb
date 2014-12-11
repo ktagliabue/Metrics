@@ -1,0 +1,9 @@
+<h1>Pageviews</h1>
+<canvas id="myChart" width="400" height="400"></canvas>
+<%= @pageviews.count %>
+<% @pageviews.each do |pageview| %>
+  <div>
+    <%= pageview.url %>
+    <%= pageview.useragent %>
+  </div>
+<% end %>
