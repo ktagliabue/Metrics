@@ -3,7 +3,7 @@
 <h1>Clicks Per Page</h1>
 <canvas id="clickChart" width="400" height="400"></canvas>
 <p>Date: <input type="text" id="datepicker" size="30"></p>
-
+<%= Click.count %>
 <%= @pageviews.count %>
 <% @pageviews.each do |pageview| %>
   <div>
@@ -15,4 +15,5 @@
 <script>
   window.barchartData = <%= raw json_escape(Pageview.barchart.to_json) %>
   window.barchartDataClick = <%= raw json_escape(Click.barchart.to_json) %>
+  window.dateData = <%= raw json_escape(Pageview.calendarchart(@date).to_json) %>
 </script>
