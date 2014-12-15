@@ -56,6 +56,9 @@ $(function(){
     }
   }
 
+  var labels3 = [window.specifiedDate]
+    , data3   = [window.dateData.length];
+
   var ctx = $("#myChart").get(0).getContext("2d");
 
   var myNewChart = new Chart(ctx);
@@ -89,9 +92,29 @@ $(function(){
         },
     ]
   }, {});
+
+
+  var cD = $("#dayChart").get(0).getContext("2d");
+
+  var dayChartNew = new Chart(cD);
+  new Chart(cD).Bar({
+    labels: labels3,
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: data3
+        },
+    ]
+  }, {});
+
 });
 
+
 $(function() {
-  $('#datepicker').datepicker();
+    $( "#datepicker" ).datepicker({dateFormat:"yy-mm-dd"});
 });
 
