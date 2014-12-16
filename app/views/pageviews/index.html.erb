@@ -17,9 +17,21 @@
   </div>
 <% end %>
 
+<textarea>
+$(function(){
+  var userId = <%= current_user.id %>
+  $.ajax({
+    type: "POST",
+    url: "api/v1/users/"+userId+"/pageviews",
+    data: { pageview: {url: document.URL, useragent:navigator.userAgent }}
+  })
+})
+</textarea>
+
 <script>
   window.barchartData = <%= raw json_escape(Pageview.barchart.to_json) %>
   window.barchartDataClick = <%= raw json_escape(Click.barchart.to_json) %>
   window.dateData = <%= raw json_escape(Pageview.calendarchart(@date).to_json) %>
   window.specifiedDate = '<%= @date %>';
+  window.userId = <%= current_user.id %>
 </script>

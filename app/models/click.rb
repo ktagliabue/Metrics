@@ -1,4 +1,6 @@
 class Click < ActiveRecord::Base
+  belongs_to :user
+
   def self.barchart
     Click
       .where(created_at: (Time.now - 6.months) .. Time.now)
