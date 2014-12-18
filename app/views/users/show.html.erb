@@ -1,0 +1,32 @@
+<h1>Pageviews</h1>
+<canvas id="myChart" width="400" height="400"></canvas>
+<h1>Clicks Per Page</h1>
+<canvas id="clickChart" width="400" height="400"></canvas>
+<h1>Pageviews Per Page Per Day</h1>
+<canvas id="dayChart" width="400" height="400"></canvas>
+<form method="GET">
+  <p>Date: <input type="text" id="datepicker" name="datetime" size="30"></p>
+  <input type= "submit">
+</form>
+
+Clicks: <%= @user.clicks.count %>
+Pageviews: <%= @user.pageviews.count %>
+
+<% @user.pageviews.each do |pageview| %>
+  <div>
+    <%= pageview.url %>
+    <%= pageview.useragent %>
+  </div>
+<% end %>
+
+<pre>
+<%= html_escape("<script src='http://localhost:3000/assets/blocmetrics.js' class='blocmetrics' data-userid=#{@user.id}></script>") %>
+</pre>
+
+<script>
+  window.barchartData = <%= raw json_escape(@user.pageviews.barchart.to_json) %>
+  window.barchartDataClick = <%= raw json_escape(@user.clicks.barchart.to_json) %>
+  window.dateData = <%= raw json_escape(@user.pageviews.calendarchart(@date).to_json) %>
+  window.specifiedDate = '<%= @date %>';
+  window.userId = <%= @user.id %>
+</script>

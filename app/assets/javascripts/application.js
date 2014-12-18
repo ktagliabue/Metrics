@@ -18,23 +18,6 @@
 //= require_tree .
 
 $(function(){
-  $.ajax({
-    type: "POST",
-    url: "api/v1/users/"+window.userId+"/pageviews",
-    data: { pageview: {url: document.URL, useragent:navigator.userAgent, user_id: window.userId }}
-  })
-})
-
-$(function(){
-  $('body').on('click', function(e){
-    $.ajax({
-      type: "POST",
-      url: "api/v1/users/"+window.userId+"/clicks",
-      data: { click: {url: document.URL, element:e.target.nodeName, user_id: window.userId}}
-    }) 
-  })
-})
-$(function(){
 
   var labels = []
     , data   = [];
